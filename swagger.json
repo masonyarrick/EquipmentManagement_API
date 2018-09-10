@@ -44,7 +44,7 @@
           "200" : {
             "description" : "Successful operation",
             "schema" : {
-              "$ref" : "#/definitions/EquipmentItem"
+              "$ref" : "#/definitions/Equipment"
             }
           },
           "404" : {
@@ -91,7 +91,7 @@
           "name" : "equipmentItem",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/EquipmentItem"
+            "$ref" : "#/definitions/Equipment"
           }
         } ],
         "responses" : {
@@ -142,7 +142,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/EquipmentItem"
+                "$ref" : "#/definitions/Equipment"
               }
             }
           },
@@ -162,7 +162,7 @@
           "name" : "equipmentItem",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/EquipmentItem"
+            "$ref" : "#/definitions/Equipment"
           }
         } ],
         "responses" : {
@@ -341,64 +341,80 @@
     }
   },
   "definitions" : {
-    "EquipmentItem" : {
+    "Equipment" : {
       "type" : "object",
       "required" : [ "id", "version", "equipmentLevel", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "A unique identification of a specific piece of equipment, within the scope of the information exchanged (manufacturing operations definition, scheduling, capability and performance) The equipment ID shall be used in other parts of the model when the equipment needs to be identified, such as the production capability for a piece of equipment, or a production response identifying the equipment used.",
           "example" : "EX7015"
         },
         "version" : {
           "type" : "number",
+          "description" : "The version of this Equipment that this message describes.",
           "example" : 1
         },
         "equipmentLevel" : {
           "type" : "string",
+          "description" : "An identification of the level in the role based equipment hierarchy.",
           "example" : "Work Unit"
         },
         "equipmentClassId" : {
           "type" : "string",
+          "description" : "The type of this Equipment item",
           "example" : "ER-9400"
         },
         "description" : {
           "type" : "string",
+          "description" : "Additional information about the equipment.",
           "example" : "Excavator EX7015"
         },
         "hierarchyScopeId" : {
           "type" : "string",
+          "description" : "The part of the supply chain where the Equipment item exists.",
           "example" : "ER-IP"
         },
         "effectiveFrom" : {
           "type" : "string",
-          "example" : 201808151000
+          "description" : "The timestamp that this Equipment item version is applicable from.",
+          "example" : "201808151000"
         },
         "effectiveTo" : {
           "type" : "string",
-          "example" : 201808151000
+          "description" : "The timestamp that this Equipment item version is applicable to.",
+          "example" : "201808151000"
         },
         "properties" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/EquipmentItemProperty"
+            "$ref" : "#/definitions/EquipmentProperty"
           }
         }
       }
     },
-    "EquipmentItemProperty" : {
+    "EquipmentProperty" : {
       "type" : "object",
-      "required" : [ "propertyKey", "propertyValue", "context", "unitOfMeasure" ],
+      "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
       "properties" : {
-        "propertyKey" : {
+        "id" : {
           "type" : "string",
+          "description" : "An identification of the specific property.",
+          "example" : "DigRate"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the equipment property.",
           "example" : "Dig Rate"
         },
-        "propertyValue" : {
+        "value" : {
           "type" : "string",
+          "description" : "The value, set of values, or range of the property. The value(s) is assumed to be within the range or set of defined values for the related equipment property.",
           "example" : 3600
         },
-        "unitOfMeasure" : {
+        "valueUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated property value, if applicable.",
           "example" : "Tonnes/Hour"
         }
       }
@@ -409,50 +425,62 @@
       "properties" : {
         "equipmentClassId" : {
           "type" : "string",
+          "description" : "Identifies the associated equipment class of the capability.",
           "example" : "ER-9400"
         },
         "equipmentId" : {
           "type" : "string",
+          "description" : "Identifies the associated equipment of the capability.",
           "example" : "EX7015"
         },
         "description" : {
           "type" : "string",
+          "description" : "Contains additional information and descriptions of the equipment capability definition.",
           "example" : "Used for digging"
         },
         "capabilityType" : {
           "type" : "string",
+          "description" : "The capability type: Used, Unused, Total, Available, Unattainable, or Committed.",
           "example" : "{Used,Unused,Total,Available,Unattainable,Committed}"
         },
         "reason" : {
           "type" : "string",
+          "description" : "Defines the reason for the capability type.",
           "example" : "Due to schedule compliance"
         },
         "confidenceFactor" : {
           "type" : "number",
+          "description" : "A measure of the confidence of the capacity value.",
           "example" : 75
         },
         "hieararchyScopeId" : {
           "type" : "string",
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy.   If omitted, then the capability is associated to the parent operations capability hierarchy scope.   Zero or more as required to identify the specific scope of the operations capability definition.",
           "example" : "ER-IP"
         },
         "equipmentUse" : {
           "type" : "string",
+          "description" : "Defines the expected capability use of the equipment class or equipment.",
           "example" : "Digging"
         },
         "startTime" : {
           "type" : "string",
+          "description" : "The starting time associated with the equipment capability. If omitted, then the capability is associated to the parent operations capability start time.",
           "example" : "201808231000"
         },
         "endTime" : {
           "type" : "string",
+          "description" : "The ending time associated with the equipment capability. If omitted, then the capability is associated to the parent operations capability end time.",
           "example" : "201208241100"
         },
         "quantity" : {
           "type" : "number",
+          "description" : "Specifies the quantity of the equipment capability defined, if applicable.",
           "example" : 1
         },
         "quantityUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated quantity, if applicable.",
           "example" : "Each"
         },
         "properties" : {
@@ -469,26 +497,32 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "An identification of a property of the associated equipment property or equipment class property.",
           "example" : "e4cad374-1dbc-4873-b46f-5a37c4215a5f"
         },
         "description" : {
           "type" : "string",
+          "description" : "Contains additional information and descriptions of the equipment capability property definition.",
           "example" : "Measurement System"
         },
         "value" : {
           "type" : "string",
+          "description" : "The value, set of values, or range of the property.",
           "example" : "Metric"
         },
         "valueUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated property value, if applicable.",
           "example" : "{Metric,Imperial}"
         },
         "quantity" : {
           "type" : "number",
+          "description" : "Specifies the quantity of the equipment capability defined, if applicable.",
           "example" : 1
         },
         "quantityUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated quantity.",
           "example" : "Each"
         },
         "properties" : {
