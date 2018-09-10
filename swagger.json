@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "API for managing instances of Equipment.",
+    "description" : "API for managing instances of Equipment and their capabilities.",
     "version" : "1.0.0",
     "title" : "Equipment Resource Management API",
     "contact" : {
