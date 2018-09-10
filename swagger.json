@@ -3,7 +3,7 @@
   "info" : {
     "description" : "API for managing instances of Equipment.",
     "version" : "1.0.0",
-    "title" : "Equipment Resource Management Equipment API",
+    "title" : "Equipment Resource Management API",
     "contact" : {
       "email" : "mason.yarrick@bhp.com"
     },
@@ -501,6 +501,6 @@
     }
   },
   "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/BHP7/EquipmentResourceManagement_Equipment/1.0.0",
-  "schemes" : [ "https" ]
+  "schemes" : [ "https" ],
+  "basePath" : "/BHP7/EquipmentResourceManagement_API/1.0.0"
 }
