@@ -343,6 +343,7 @@
   "definitions" : {
     "Equipment" : {
       "type" : "object",
+      "description" : "A representation of the elements of the equipment hierarchy model shown in Part 1 shall be known as equipment. Equipment may be a listing of sites, areas, production units, production lines, work cells, process cells, units, storage zones or storage units. Equipment may be tested by the execution of an equipment capability test specification. Equipment may be made up of other equipment, as presented in the equipment hierarchy model.",
       "required" : [ "id", "version", "equipmentLevel", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
@@ -395,6 +396,7 @@
     },
     "EquipmentProperty" : {
       "type" : "object",
+      "description" : "Properties of equipment shall be listed as equipment properties. An equipment shall have zero or more equipment properties. These specify the current property values of the equipment for the associated equipment class property. Equipment properties may include a unit of measure. An equipment property may be tested by the execution of an equipment capability test specification with results exchanged in an equipment capability test result. Equipment properties may contain nested equipment properties.",
       "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
       "properties" : {
         "id" : {
@@ -421,6 +423,7 @@
     },
     "EquipmentCapability" : {
       "type" : "object",
+      "description" : "A representation of the capability of equipment or equipment classes that is committed, available, or unattainable for a specific time shall be used as an equipment capability. Equipment capability may contain references to either equipment or equipment classes.",
       "required" : [ "capabilityType", "quantity", "quantityUnitOfMeasure" ],
       "properties" : {
         "equipmentClassId" : {
@@ -493,6 +496,7 @@
     },
     "EquipmentCapabilityProperty" : {
       "type" : "object",
+      "description" : "Equipment capability properties may contain nested equipment capability properties.",
       "required" : [ "id", "value", "quantity" ],
       "properties" : {
         "id" : {
