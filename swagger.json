@@ -1,0 +1,246 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API for managing instances of Equipment.",
+    "version" : "1.0.0",
+    "title" : "Equipment Resource Management Equipment API",
+    "contact" : {
+      "email" : "mason.yarrick@bhp.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "developers",
+    "description" : "Operations available to regular developers"
+  } ],
+  "paths" : {
+    "/equipment/{id}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "gets equipment",
+        "operationId" : "getEquipmentItem",
+        "description" : "Gets equipment with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Equipment ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "id",
+          "description" : "The version of the spec to get the equipment for",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EquipmentItem"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "deletes equipment",
+        "operationId" : "deleteEquipment",
+        "description" : "Delete existing items of equipment from the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Equipment ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Deleted"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "admins" ],
+        "summary" : "updates equipment",
+        "operationId" : "updateEquipment",
+        "description" : "Update existing items of equipment in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Equipment ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "equipmentItem",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/EquipmentItem"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Updated"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    },
+    "/equipment" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "retrieves equipment",
+        "operationId" : "searchEquipment",
+        "description" : "By passing in the appropriate options, you can search for available equipment items in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "id",
+          "description" : "the unique identifier of the equipment to retrieve",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "hierarchyScopeId",
+          "description" : "The hierarchy scope to retrieve equipment by",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "the number of results to return",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "the version of the spec to get equipment for",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EquipmentItem"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "creates equipment",
+        "operationId" : "createEquipment",
+        "description" : "Create new items of equipment in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "equipmentItem",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/EquipmentItem"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "EquipmentItem" : {
+      "type" : "object",
+      "required" : [ "id", "version", "equipmentLevel", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "EX7015"
+        },
+        "version" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "equipmentLevel" : {
+          "type" : "string",
+          "example" : "Work Unit"
+        },
+        "equipmentClassId" : {
+          "type" : "string",
+          "example" : "ER-9400"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Excavator EX7015"
+        },
+        "hierarchyScopeId" : {
+          "type" : "string",
+          "example" : "ER-IP"
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "example" : 201808151000
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "example" : 201808151000
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/EquipmentItemProperty"
+          }
+        }
+      }
+    },
+    "EquipmentItemProperty" : {
+      "type" : "object",
+      "required" : [ "propertyKey", "propertyValue", "context", "unitOfMeasure" ],
+      "properties" : {
+        "propertyKey" : {
+          "type" : "string",
+          "example" : "Dig Rate"
+        },
+        "propertyValue" : {
+          "type" : "string",
+          "example" : 3600
+        },
+        "unitOfMeasure" : {
+          "type" : "string",
+          "example" : "Tonnes/Hour"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/BHP7/EquipmentResourceManagement_Equipment/1.0.0",
+  "schemes" : [ "https" ]
+}
